@@ -1,6 +1,6 @@
 # Shimmer for Android
 
-Shimmer is an Android port of [Facebook Shimmer library for iOS](https://github.com/facebook/Shimmer).
+Shimmer-android is an Android port of [Facebook Shimmer library for iOS](https://github.com/facebook/Shimmer).
 
 [![ScreenShot](shimmer.png)](http://youtu.be/7EOsegp4J2o)
 
