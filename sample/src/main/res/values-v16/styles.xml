@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="MyTextView">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+</resources>

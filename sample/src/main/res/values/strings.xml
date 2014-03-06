@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Shimmer</string>
+    <string name="shimmer">Shimmer</string>
+    <string name="toggle_animation">Toggle animation</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
