@@ -8,30 +8,42 @@ Shimmer is an Android port of [Facebook Shimmer library for iOS](https://github.
 
 ## How to use
 
+Add a `ShimmerTextView` to your layout:
+
+```xml
+<com.romainpiel.shimmer.ShimmerTextView
+    android:id="@+id/shimmer_tv"
+    android:text="@string/shimmer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#444"
+    android:textSize="50sp"/>
+```
+
 To start the animation:
 
 ```java
-    Shimmer.animate(tv, new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(final Animator animation) {
-            shimmerAnimator = animation;
-        }
+Shimmer.animate(tv, new Animator.AnimatorListener() {
+    @Override
+    public void onAnimationStart(final Animator animation) {
+        shimmerAnimator = animation;
+    }
 
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            shimmerAnimator = null;
-        }
+    @Override
+    public void onAnimationEnd(Animator animation) {
+        shimmerAnimator = null;
+    }
 
-        @Override
-        public void onAnimationCancel(Animator animation) {
+    @Override
+    public void onAnimationCancel(Animator animation) {
 
-        }
+    }
 
-        @Override
-        public void onAnimationRepeat(Animator animation) {
+    @Override
+    public void onAnimationRepeat(Animator animation) {
 
-        }
-    });
+    }
+});
 ```
 
 You may want to keep track of the animator after the animation is started if you want to stop it.
@@ -39,7 +51,22 @@ You may want to keep track of the animator after the animation is started if you
 To stop it:
 
 ```java
-    shimmerAnimator.cancel();
+shimmerAnimator.cancel();
+```
+
+## Customization
+
+You can change the color of the reflection using the custom attribute `reflectionColor`:
+
+```xml
+<com.romainpiel.shimmer.ShimmerTextView
+    android:id="@+id/shimmer_tv"
+    android:text="@string/shimmer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#444"
+    android:textSize="50sp"
+    app:reflectionColor="#f00"/>
 ```
 
 ## Sample
