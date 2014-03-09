@@ -20,6 +20,9 @@ public class ShimmerTextView extends TextView {
 
     private static final int DEFAULT_REFLECTION_COLOR = 0xFFFFFFFF;
 
+    public static final int LEFT_TO_RIGHT = 0;
+    public static final int RIGHT_TO_LEFT = 1;
+
     // center position of the gradient
     private float gradientX;
     private LinearGradientFactory linearGradientFactory;
@@ -33,6 +36,9 @@ public class ShimmerTextView extends TextView {
 
     // callback called after first global layout
     private AnimationSetupCallback callback;
+
+    // direction of shimmer movement
+    private int shimmerDirection;
 
     public interface AnimationSetupCallback {
         void onSetupAnimation(ShimmerTextView shimmerTextView);
@@ -82,6 +88,10 @@ public class ShimmerTextView extends TextView {
         this.callback = callback;
     }
 
+    public int getShimmerDirection() {
+        return shimmerDirection;
+    }
+
     private void init(Context context, AttributeSet attributeSet) {
 
         reflectionColor = DEFAULT_REFLECTION_COLOR;
@@ -91,6 +101,7 @@ public class ShimmerTextView extends TextView {
             if (a != null) {
                 try {
                     reflectionColor = a.getColor(R.styleable.ShimmerTextView_reflectionColor, DEFAULT_REFLECTION_COLOR);
+                    shimmerDirection = a.getInt(R.styleable.ShimmerTextView_shimmerDirection, LEFT_TO_RIGHT);
                 } catch (Exception e) {
                     android.util.Log.e("ShimmerTextView", "Error while creating the view:", e);
                 } finally {

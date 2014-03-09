@@ -56,7 +56,7 @@ shimmerAnimator.cancel();
 
 ## Customization
 
-You can change the color of the reflection using the custom attribute `reflectionColor`:
+You can change the color of the reflection using the custom attribute `reflectionColor`.  You can also change the direction of the shimmer for right-to-left languages using the custom attribute `shimmerDirection`:
 
 ```xml
 <com.romainpiel.shimmer.ShimmerTextView
@@ -66,7 +66,8 @@ You can change the color of the reflection using the custom attribute `reflectio
     android:layout_height="wrap_content"
     android:textColor="#444"
     android:textSize="50sp"
-    app:reflectionColor="#f00"/>
+    app:reflectionColor="#f00"
+    app:shimmerDirection="rtl"/>
 ```
 
 ## Sample
