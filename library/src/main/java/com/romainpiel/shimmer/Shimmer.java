@@ -105,7 +105,7 @@ public class Shimmer {
                     toX = 0;
                 }
 
-                animator = ObjectAnimator.ofFloat(shimmerTextView, "maskX", fromX, toX);
+                animator = ObjectAnimator.ofFloat(shimmerTextView, "gradientX", fromX, toX);
                 animator.setRepeatCount(repeatCount);
                 animator.setDuration(duration);
                 animator.setStartDelay(startDelay);

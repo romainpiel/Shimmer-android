@@ -1,11 +1,12 @@
 package com.romainpiel.shimmer;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Shader;
-import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -22,7 +23,16 @@ public class ShimmerTextView extends TextView {
 
     // center position of the gradient
     private float gradientX;
-    private LinearGradientFactory linearGradientFactory;
+
+    // shader applied on the text view
+    // only null until the first global layout
+    private LinearGradient linearGradient;
+
+    // shader's local matrix
+    // never null
+    private Matrix linearGradientMatrix;
+
+    // shimmer reflection color
     private int reflectionColor;
 
     // true when animating
@@ -53,12 +63,12 @@ public class ShimmerTextView extends TextView {
         init(context, attrs);
     }
 
-    public float getMaskX() {
+    public float getGradientX() {
         return gradientX;
     }
 
-    protected void setMaskX(float maskX) {
-        gradientX = maskX;
+    protected void setGradientX(float gradientX) {
+        this.gradientX = gradientX;
         invalidate();
     }
 
@@ -82,6 +92,33 @@ public class ShimmerTextView extends TextView {
         this.callback = callback;
     }
 
+    public int getReflectionColor() {
+        return reflectionColor;
+    }
+
+    public void setReflectionColor(int reflectionColor) {
+        this.reflectionColor = reflectionColor;
+        if (isSetUp) {
+            resetLinearGradient();
+        }
+    }
+
+    @Override
+    public void setTextColor(int color) {
+        super.setTextColor(color);
+        if (isSetUp) {
+            resetLinearGradient();
+        }
+    }
+
+    @Override
+    public void setTextColor(ColorStateList colors) {
+        super.setTextColor(colors);
+        if (isSetUp) {
+            resetLinearGradient();
+        }
+    }
+
     private void init(Context context, AttributeSet attributeSet) {
 
         reflectionColor = DEFAULT_REFLECTION_COLOR;
@@ -99,27 +136,55 @@ public class ShimmerTextView extends TextView {
             }
         }
 
-        linearGradientFactory = new LinearGradientFactory();
+        linearGradientMatrix = new Matrix();
+    }
+
+    private void resetLinearGradient() {
+
+        int textColor = getCurrentTextColor();
+
+        // our gradient is a simple linear gradient from textColor to reflectionColor. its axis is at the center
+        // when it's outside of the view, the outer color (textColor) will be repeated (Shader.TileMode.CLAMP)
+        // initially, the linear gradient is positioned on the left side of the view
+        linearGradient = new LinearGradient(- getWidth(), 0, 0, 0,
+                new int[]{
+                        textColor,
+                        reflectionColor,
+                        textColor,
+                },
+                new float[]{
+                        0,
+                        0.5f,
+                        1
+                },
+                Shader.TileMode.CLAMP);
+
+        getPaint().setShader(linearGradient);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
+        ViewTreeObserver viewTreeObserver = getViewTreeObserver();
+        if (viewTreeObserver != null) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
 
-                isSetUp = true;
+                    resetLinearGradient();
 
-                if (callback != null) {
-                    callback.onSetupAnimation(ShimmerTextView.this);
+                    isSetUp = true;
+
+                    if (callback != null) {
+                        callback.onSetupAnimation(ShimmerTextView.this);
+                    }
+
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
-
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -127,49 +192,23 @@ public class ShimmerTextView extends TextView {
 
         // only draw the shader gradient over the text while animating
         if (isShimmering) {
-            getPaint().setShader(linearGradientFactory.resize(getWidth(), getHeight()));
+
+            // first onDraw() when shimmering
+            if (getPaint().getShader() == null) {
+                getPaint().setShader(linearGradient);
+            }
+
+            // translate the shader local matrix
+            linearGradientMatrix.setTranslate(2 * gradientX, 0);
+
+            // this is required in order to invalidate the shader's position
+            linearGradient.setLocalMatrix(linearGradientMatrix);
+
         } else {
+            // we're not animating, remove the shader from the paint
             getPaint().setShader(null);
         }
 
         super.onDraw(canvas);
-    }
-
-    /**
-     * Factory class creating LinearGradient shaders. The shader is based on current value of gradientX
-     */
-    private class LinearGradientFactory extends ShapeDrawable.ShaderFactory {
-
-        @Override
-        public Shader resize(int width, int height) {
-
-            // our linear gradient's width is 3 times bigger than the view's width
-            // it is divided in 4 parts:
-            // - text color
-            // - gradient text color - reflection color
-            // - gradient reflection color - text color
-            // - text color
-            // addition of two central parts width = view width
-
-            float delta = gradientX / (float) getWidth();
-            int textColor = getCurrentTextColor();
-
-            return new LinearGradient(-width, 0, 2 * width, 0,
-                    new int[]{
-                            textColor,
-                            textColor,
-                            reflectionColor,
-                            textColor,
-                            textColor
-                    },
-                    new float[]{
-                            0,
-                            delta - 1f / 6f,
-                            delta,
-                            delta + 1f / 6f,
-                            1
-                    },
-                    Shader.TileMode.CLAMP);
-        }
     }
 }
