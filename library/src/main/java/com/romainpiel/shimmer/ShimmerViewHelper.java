@@ -1,7 +1,6 @@
 package com.romainpiel.shimmer;
 
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -52,9 +51,10 @@ public class ShimmerViewHelper {
     // callback called after first global layout
     private AnimationSetupCallback callback;
 
-    public ShimmerViewHelper(View view, Paint paint) {
+    public ShimmerViewHelper(View view, Paint paint, AttributeSet attributeSet) {
         this.view = view;
         this.paint = paint;
+        init(attributeSet);
     }
 
     public float getGradientX() {
@@ -104,15 +104,15 @@ public class ShimmerViewHelper {
         }
     }
 
-    public void init(AttributeSet attributeSet) {
+    private void init(AttributeSet attributeSet) {
 
         reflectionColor = DEFAULT_REFLECTION_COLOR;
 
         if (attributeSet != null) {
-            TypedArray a = view.getContext().obtainStyledAttributes(attributeSet, R.styleable.ShimmerTextView, 0, 0);
+            TypedArray a = view.getContext().obtainStyledAttributes(attributeSet, R.styleable.ShimmerView, 0, 0);
             if (a != null) {
                 try {
-                    reflectionColor = a.getColor(R.styleable.ShimmerTextView_reflectionColor, DEFAULT_REFLECTION_COLOR);
+                    reflectionColor = a.getColor(R.styleable.ShimmerView_reflectionColor, DEFAULT_REFLECTION_COLOR);
                 } catch (Exception e) {
                     android.util.Log.e("ShimmerTextView", "Error while creating the view:", e);
                 } finally {
@@ -124,7 +124,7 @@ public class ShimmerViewHelper {
         linearGradientMatrix = new Matrix();
     }
 
-    public void resetLinearGradient() {
+    private void resetLinearGradient() {
 
         // our gradient is a simple linear gradient from textColor to reflectionColor. its axis is at the center
         // when it's outside of the view, the outer color (textColor) will be repeated (Shader.TileMode.CLAMP)
@@ -145,6 +145,9 @@ public class ShimmerViewHelper {
         paint.setShader(linearGradient);
     }
 
+    /**
+     * content of the wrapping view's onAttachedToWindow()
+     */
     public void onAttachedToWindow() {
 
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
@@ -168,7 +171,11 @@ public class ShimmerViewHelper {
         }
     }
 
-    public void onDraw(Canvas canvas) {
+    /**
+     * content of the wrapping view's onDraw(Canvas)
+     * MUST BE CALLED BEFORE SUPER STATEMENT
+     */
+    public void onDraw() {
 
         // only draw the shader gradient over the text while animating
         if (isShimmering) {

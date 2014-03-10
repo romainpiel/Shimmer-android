@@ -11,6 +11,9 @@ import android.widget.TextView;
  * User: romainpiel
  * Date: 06/03/2014
  * Time: 10:19
+ *
+ * Shimmering TextView
+ * Dumb class wrapping a ShimmerViewHelper
  */
 public class ShimmerTextView extends TextView implements ShimmerViewBase {
 
@@ -18,22 +21,19 @@ public class ShimmerTextView extends TextView implements ShimmerViewBase {
 
     public ShimmerTextView(Context context) {
         super(context);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
-        shimmerViewHelper.init(null);
+        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), null);
         shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
     }
 
     public ShimmerTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
-        shimmerViewHelper.init(attrs);
+        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), attrs);
         shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
     }
 
     public ShimmerTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
-        shimmerViewHelper.init(attrs);
+        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), attrs);
         shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
     }
 
@@ -114,7 +114,7 @@ public class ShimmerTextView extends TextView implements ShimmerViewBase {
     @Override
     public void onDraw(Canvas canvas) {
         if (shimmerViewHelper != null) {
-            shimmerViewHelper.onDraw(canvas);
+            shimmerViewHelper.onDraw();
         }
         super.onDraw(canvas);
     }

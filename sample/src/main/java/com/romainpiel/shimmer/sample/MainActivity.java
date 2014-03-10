@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.romainpiel.shimmer.Shimmer;
-import com.romainpiel.shimmer.ShimmerButton;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 public class MainActivity extends Activity {
 
-    ShimmerButton tv;
+    ShimmerTextView tv;
     Shimmer shimmer;
 
     @Override
@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv = (ShimmerButton) findViewById(R.id.shimmer_tv);
+        tv = (ShimmerTextView) findViewById(R.id.shimmer_tv);
     }
 
     public void toggleAnimation(View target) {

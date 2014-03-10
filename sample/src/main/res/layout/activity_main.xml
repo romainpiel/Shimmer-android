@@ -1,10 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="#242424">
 
-    <com.romainpiel.shimmer.ShimmerButton
+    <com.romainpiel.shimmer.ShimmerTextView
         android:id="@+id/shimmer_tv"
         android:text="@string/shimmer"
         android:layout_width="wrap_content"
@@ -12,8 +11,7 @@
         android:textColor="#444"
         android:textSize="50sp"
         android:layout_gravity="center"
-        style="@style/MyTextView"
-        app:reflectionColor="#f00"/>
+        style="@style/MyTextView"/>
 
     <Button
         android:text="@string/toggle_animation"
