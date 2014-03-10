@@ -8,8 +8,12 @@ Shimmer-android is an Android port of [Facebook Shimmer library for iOS](https:/
 
 ## How to use
 
-Add a `ShimmerTextView` to your layout:
+Gradle dependency:
+```groovy
+compile 'com.romainpiel.shimmer:library:1.1.0@aar'
+```
 
+Add a `ShimmerTextView` to your layout:
 ```xml
 <com.romainpiel.shimmer.ShimmerTextView
     android:id="@+id/shimmer_tv"
@@ -21,7 +25,6 @@ Add a `ShimmerTextView` to your layout:
 ```
 
 To start the animation:
-
 ```java
 shimmer = new Shimmer();
 shimmer.start(myShimmerTextView);
@@ -30,7 +33,6 @@ shimmer.start(myShimmerTextView);
 You may want to keep track of the shimmer instance after the animation is started if you want to stop it.
 
 To stop it:
-
 ```java
 shimmer.cancel();
 ```
@@ -55,7 +57,6 @@ You can change the color of the reflection using the custom attribute `reflectio
 ### Customizing the animation
 
 The animation can be tweaked like a usual `ObjectAnimator`:
-
 ```java
 // DON'T COPY THIS CODE TO YOUR PROJECT! It is just an example
 shimmer.setRepeatCount(0)
