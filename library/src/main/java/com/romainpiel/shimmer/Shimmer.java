@@ -19,6 +19,9 @@ public class Shimmer {
             @Override
             public void run() {
                 ObjectAnimator animator = ObjectAnimator.ofFloat(shimmerTextView, "maskX", 0, shimmerTextView.getWidth());
+                if (shimmerTextView.getShimmerDirection() == ShimmerTextView.RIGHT_TO_LEFT) {
+                    animator.setFloatValues(shimmerTextView.getWidth(), 0);
+                }
                 animator.setRepeatCount(ValueAnimator.INFINITE);
                 animator.setDuration(1000);
                 animator.addListener(new Animator.AnimatorListener() {
