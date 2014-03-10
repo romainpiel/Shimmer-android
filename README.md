@@ -23,38 +23,21 @@ Add a `ShimmerTextView` to your layout:
 To start the animation:
 
 ```java
-Shimmer.animate(tv, new Animator.AnimatorListener() {
-    @Override
-    public void onAnimationStart(final Animator animation) {
-        shimmerAnimator = animation;
-    }
-
-    @Override
-    public void onAnimationEnd(Animator animation) {
-        shimmerAnimator = null;
-    }
-
-    @Override
-    public void onAnimationCancel(Animator animation) {
-
-    }
-
-    @Override
-    public void onAnimationRepeat(Animator animation) {
-
-    }
-});
+shimmer = new Shimmer();
+shimmer.start(myShimmerTextView);
 ```
 
-You may want to keep track of the animator after the animation is started if you want to stop it.
+You may want to keep track of the shimmer instance after the animation is started if you want to stop it.
 
 To stop it:
 
 ```java
-shimmerAnimator.cancel();
+shimmer.cancel();
 ```
 
 ## Customization
+
+### Customizing the view
 
 You can change the color of the reflection using the custom attribute `reflectionColor`:
 
@@ -67,6 +50,19 @@ You can change the color of the reflection using the custom attribute `reflectio
     android:textColor="#444"
     android:textSize="50sp"
     app:reflectionColor="#f00"/>
+```
+
+### Customizing the animation
+
+The animation can be tweaked like a usual `ObjectAnimator`:
+
+```java
+// DON'T COPY THIS CODE TO YOUR PROJECT! It is just an example
+shimmer.setRepeatCount(0)
+    .setDuration(500)
+    .setStartDelay(300)
+    .setDirection(Shimmer.ANIMATION_DIRECTION_RTL)
+    .setAnimatorListener(new Animator.AnimatorListener(){});
 ```
 
 ## Sample
