@@ -67,7 +67,7 @@ public class ShimmerTextView extends TextView {
         return gradientX;
     }
 
-    protected void setGradientX(float gradientX) {
+    public void setGradientX(float gradientX) {
         this.gradientX = gradientX;
         invalidate();
     }
