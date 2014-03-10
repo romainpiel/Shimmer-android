@@ -3,6 +3,7 @@ package com.romainpiel.shimmer;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.os.Build;
 
 /**
  * Shimmer
@@ -116,7 +117,12 @@ public class Shimmer {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         shimmerTextView.setShimmering(false);
-                        shimmerTextView.postInvalidate();
+
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            shimmerTextView.postInvalidate();
+                        } else {
+                            shimmerTextView.postInvalidateOnAnimation();
+                        }
 
                         animator = null;
                     }
