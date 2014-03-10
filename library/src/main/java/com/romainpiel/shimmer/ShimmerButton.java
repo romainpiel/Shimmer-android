@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.Button;
 
 /**
  * Shimmer
@@ -12,25 +12,25 @@ import android.widget.TextView;
  * Date: 06/03/2014
  * Time: 10:19
  */
-public class ShimmerTextView extends TextView implements ShimmerViewBase {
+public class ShimmerButton extends Button implements ShimmerViewBase {
 
     private ShimmerViewHelper shimmerViewHelper;
 
-    public ShimmerTextView(Context context) {
+    public ShimmerButton(Context context) {
         super(context);
         shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
         shimmerViewHelper.init(null);
         shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
     }
 
-    public ShimmerTextView(Context context, AttributeSet attrs) {
+    public ShimmerButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
         shimmerViewHelper.init(attrs);
         shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
     }
 
-    public ShimmerTextView(Context context, AttributeSet attrs, int defStyle) {
+    public ShimmerButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         shimmerViewHelper = new ShimmerViewHelper(this, getPaint());
         shimmerViewHelper.init(attrs);

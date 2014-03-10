@@ -4,7 +4,7 @@
              android:layout_height="match_parent"
              android:background="#242424">
 
-    <com.romainpiel.shimmer.ShimmerTextView
+    <com.romainpiel.shimmer.ShimmerButton
         android:id="@+id/shimmer_tv"
         android:text="@string/shimmer"
         android:layout_width="wrap_content"
@@ -12,7 +12,8 @@
         android:textColor="#444"
         android:textSize="50sp"
         android:layout_gravity="center"
-        style="@style/MyTextView"/>
+        style="@style/MyTextView"
+        app:reflectionColor="#f00"/>
 
     <Button
         android:text="@string/toggle_animation"

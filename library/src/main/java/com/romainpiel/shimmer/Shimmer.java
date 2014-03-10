@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Build;
+import android.view.View;
 
 /**
  * Shimmer
@@ -86,7 +87,7 @@ public class Shimmer {
         return this;
     }
 
-    public void start(final ShimmerTextView shimmerTextView) {
+    public <V extends View & ShimmerViewBase> void start(final V shimmerView) {
 
         if (isAnimating()) {
             return;
@@ -96,16 +97,16 @@ public class Shimmer {
             @Override
             public void run() {
 
-                shimmerTextView.setShimmering(true);
+                shimmerView.setShimmering(true);
 
                 float fromX = 0;
-                float toX = shimmerTextView.getWidth();
+                float toX = shimmerView.getWidth();
                 if (direction == ANIMATION_DIRECTION_RTL) {
-                    fromX = shimmerTextView.getWidth();
+                    fromX = shimmerView.getWidth();
                     toX = 0;
                 }
 
-                animator = ObjectAnimator.ofFloat(shimmerTextView, "gradientX", fromX, toX);
+                animator = ObjectAnimator.ofFloat(shimmerView, "gradientX", fromX, toX);
                 animator.setRepeatCount(repeatCount);
                 animator.setDuration(duration);
                 animator.setStartDelay(startDelay);
@@ -116,12 +117,12 @@ public class Shimmer {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        shimmerTextView.setShimmering(false);
+                        shimmerView.setShimmering(false);
 
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            shimmerTextView.postInvalidate();
+                            shimmerView.postInvalidate();
                         } else {
-                            shimmerTextView.postInvalidateOnAnimation();
+                            shimmerView.postInvalidateOnAnimation();
                         }
 
                         animator = null;
@@ -146,10 +147,10 @@ public class Shimmer {
             }
         };
 
-        if (!shimmerTextView.isSetUp()) {
-            shimmerTextView.setAnimationSetupCallback(new ShimmerTextView.AnimationSetupCallback() {
+        if (!shimmerView.isSetUp()) {
+            shimmerView.setAnimationSetupCallback(new ShimmerViewHelper.AnimationSetupCallback() {
                 @Override
-                public void onSetupAnimation(final ShimmerTextView shimmerTextView) {
+                public void onSetupAnimation(final View target) {
                     animate.run();
                 }
             });
