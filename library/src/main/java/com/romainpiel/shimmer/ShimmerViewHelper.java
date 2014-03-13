@@ -171,6 +171,17 @@ public class ShimmerViewHelper {
         }
     }
 
+    protected void onSizeChanged() {
+
+        resetLinearGradient();
+
+        isSetUp = true;
+
+        if (callback != null) {
+            callback.onSetupAnimation(view);
+        }
+    }
+
     /**
      * content of the wrapping view's onDraw(Canvas)
      * MUST BE CALLED BEFORE SUPER STATEMENT
