@@ -186,6 +186,19 @@ public class ShimmerTextView extends TextView {
             });
         }
     }
+    
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        resetLinearGradient();
+
+        isSetUp = true;
+
+        if (callback != null) {
+            callback.onSetupAnimation(ShimmerTextView.this);
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
