@@ -104,14 +104,6 @@ public class ShimmerTextView extends TextView implements ShimmerViewBase {
     }
 
     @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (shimmerViewHelper != null) {
-            shimmerViewHelper.onAttachedToWindow();
-        }
-    }
-
-    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if (shimmerViewHelper != null) {
