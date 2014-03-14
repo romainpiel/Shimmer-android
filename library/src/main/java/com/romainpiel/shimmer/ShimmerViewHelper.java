@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 /**
  * Shimmer
@@ -129,7 +128,7 @@ public class ShimmerViewHelper {
         // our gradient is a simple linear gradient from textColor to reflectionColor. its axis is at the center
         // when it's outside of the view, the outer color (textColor) will be repeated (Shader.TileMode.CLAMP)
         // initially, the linear gradient is positioned on the left side of the view
-        linearGradient = new LinearGradient(- view.getWidth(), 0, 0, 0,
+        linearGradient = new LinearGradient(-view.getWidth(), 0, 0, 0,
                 new int[]{
                         primaryColor,
                         reflectionColor,
@@ -140,7 +139,8 @@ public class ShimmerViewHelper {
                         0.5f,
                         1
                 },
-                Shader.TileMode.CLAMP);
+                Shader.TileMode.CLAMP
+        );
 
         paint.setShader(linearGradient);
     }
@@ -149,10 +149,12 @@ public class ShimmerViewHelper {
 
         resetLinearGradient();
 
-        isSetUp = true;
+        if (!isSetUp) {
+            isSetUp = true;
 
-        if (callback != null) {
-            callback.onSetupAnimation(view);
+            if (callback != null) {
+                callback.onSetupAnimation(view);
+            }
         }
     }
 
