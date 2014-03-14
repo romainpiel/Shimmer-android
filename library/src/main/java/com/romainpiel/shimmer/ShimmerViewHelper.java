@@ -145,29 +145,14 @@ public class ShimmerViewHelper {
         paint.setShader(linearGradient);
     }
 
-    /**
-     * content of the wrapping view's onAttachedToWindow()
-     */
-    public void onAttachedToWindow() {
+    protected void onSizeChanged() {
 
-        ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @SuppressWarnings("deprecation")
-                @Override
-                public void onGlobalLayout() {
+        resetLinearGradient();
 
-                    resetLinearGradient();
+        isSetUp = true;
 
-                    isSetUp = true;
-
-                    if (callback != null) {
-                        callback.onSetupAnimation(view);
-                    }
-
-                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-            });
+        if (callback != null) {
+            callback.onSetupAnimation(view);
         }
     }
 

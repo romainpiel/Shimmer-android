@@ -104,10 +104,10 @@ public class ShimmerButton extends Button implements ShimmerViewBase {
     }
 
     @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
         if (shimmerViewHelper != null) {
-            shimmerViewHelper.onAttachedToWindow();
+            shimmerViewHelper.onSizeChanged();
         }
     }
 
