@@ -10,7 +10,7 @@ Shimmer-android is an Android port of [Facebook Shimmer library for iOS](https:/
 
 Gradle dependency:
 ```groovy
-compile 'com.romainpiel.shimmer:library:1.1.0@aar'
+compile 'com.romainpiel.shimmer:library:1.2.0@aar'
 ```
 
 Add a `ShimmerTextView` to your layout:
@@ -65,6 +65,11 @@ shimmer.setRepeatCount(0)
     .setDirection(Shimmer.ANIMATION_DIRECTION_RTL)
     .setAnimatorListener(new Animator.AnimatorListener(){});
 ```
+
+### Custom Shimmer view
+
+Shimmer also includes a [`ShimmerButton`](https://github.com/RomainPiel/Shimmer-android/blob/master/library/src/main/java/com/romainpiel/shimmer/ShimmerButton.java). It works exactly the same way as a `ShimmerTextView`.
+Have a look at how it's implemented and you can apply the same effect on your custom view if you need it.
 
 ## Sample
 
