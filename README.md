@@ -1,6 +1,9 @@
 # Shimmer for Android
 
 Shimmer-android is an Android port of [Facebook Shimmer library for iOS](https://github.com/facebook/Shimmer).
+Examples of usage:
+- show a loading indicator
+- show a highlighted `TextView`.
 
 [![ScreenShot](shimmer.gif)](http://youtu.be/7EOsegp4J2o)
 
