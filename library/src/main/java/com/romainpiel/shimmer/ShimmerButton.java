@@ -20,15 +20,11 @@ public class ShimmerButton extends Button implements ShimmerViewBase {
     private ShimmerViewHelper shimmerViewHelper;
 
     public ShimmerButton(Context context) {
-        super(context);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), null);
-        shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
+        this(context, null, 0);
     }
 
     public ShimmerButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), attrs);
-        shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
+        this(context, attrs, 0);
     }
 
     public ShimmerButton(Context context, AttributeSet attrs, int defStyle) {
