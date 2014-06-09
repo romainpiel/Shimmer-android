@@ -20,15 +20,11 @@ public class ShimmerTextView extends TextView implements ShimmerViewBase {
     private ShimmerViewHelper shimmerViewHelper;
 
     public ShimmerTextView(Context context) {
-        super(context);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), null);
-        shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
+        this(context, null, 0);
     }
 
     public ShimmerTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        shimmerViewHelper = new ShimmerViewHelper(this, getPaint(), attrs);
-        shimmerViewHelper.setPrimaryColor(getCurrentTextColor());
+        this(context, attrs, 0);
     }
 
     public ShimmerTextView(Context context, AttributeSet attrs, int defStyle) {
