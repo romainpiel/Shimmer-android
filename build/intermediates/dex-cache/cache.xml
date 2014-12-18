@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Aman\Workspace\TryOuts\shimmer\sample\build\intermediates\exploded-aar\shimmer\library\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="893d09ea869751ef32789b9ec36790330ee6b94e">
+        <dex dex="E:\Aman\Workspace\TryOuts\shimmer\sample\build\intermediates\pre-dexed\debug\classes-9dab42824aab8c021897ea27891553355db23433.jar" />
+    </item>
+
+</items>
