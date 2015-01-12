@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.3.0 *12/01/2015*
+
+- Updated build tools
+
 ## Version 1.2.0 *24/03/2014*
 
 - Added `ShimmerButton`
