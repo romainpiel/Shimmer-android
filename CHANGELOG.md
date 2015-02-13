@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.4.0 *13/02/2015*
+
+- Cleaned up library manifest
+
 ## Version 1.3.0 *12/01/2015*
 
 - Updated build tools
