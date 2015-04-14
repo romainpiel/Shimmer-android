@@ -14,7 +14,7 @@ Examples of usage:
 
 Gradle dependency:
 ```groovy
-compile 'com.romainpiel.shimmer:library:1.3.0@aar'
+compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 ```
 
 Add a `ShimmerTextView` to your layout:
