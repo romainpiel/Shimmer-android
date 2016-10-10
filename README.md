@@ -1,5 +1,7 @@
 # Shimmer for Android
 
+This library is DEPRECATED, as I don't have time to mainatin it anymore. But feel free to go through the code and copy that into your project, it still does its job.
+
 Shimmer-android is an Android port of [Facebook Shimmer library for iOS](https://github.com/facebook/Shimmer).
 
 [![ScreenShot](shimmer.gif)](http://youtu.be/7EOsegp4J2o)
