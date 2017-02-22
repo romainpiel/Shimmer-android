@@ -110,6 +110,19 @@ public class ShimmerTextView extends TextView implements ShimmerViewBase {
             shimmerViewHelper.onSizeChanged();
         }
     }
+    
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        resetLinearGradient();
+
+        isSetUp = true;
+
+        if (callback != null) {
+            callback.onSetupAnimation(ShimmerTextView.this);
+        }
+    }
 
     @Override
     public void onDraw(Canvas canvas) {
